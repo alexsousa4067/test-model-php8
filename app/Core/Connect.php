@@ -14,25 +14,22 @@ class Connect
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ];
 
-    private static PDO $instance;
-    private static PDOException $fail;
+    private static null|PDO $instance = null;
+    private static null|PDOException $fail = null;
 
     /**
      * @return PDO
+     * @throws PDOException
      */
     public static function getInstance(): PDO
     {
         if (empty(self::$instance)) {
-            try {
-                self::$instance = new PDO(
-                    "mysql:host=" . getenv('CONF_DB_HOST') . ";dbname=" . getenv('CONF_DB_NAME') . ";port=" . getenv('CONF_DB_PORT'),
-                    getenv('CONF_DB_USER'),
-                    getenv("CONF_DB_PASS"),
-                    self::OPTIONS
-                );
-            } catch (PDOException $exception) {
-                self::$fail = $exception;
-            }
+            self::$instance = new PDO(
+                "mysql:host=" . getenv('CONF_DB_HOST') . ";dbname=" . getenv('CONF_DB_NAME') . ";port=" . getenv('CONF_DB_PORT'),
+                getenv('CONF_DB_USER'),
+                getenv("CONF_DB_PASS"),
+                self::OPTIONS
+            );
         }
         return self::$instance;
     }

@@ -6,8 +6,8 @@ require_once "vendor/autoload.php";
 use App\Models\User;
 
 $user = new User();
-$user->name = "Alex";
-$user->last_name = "Sousa";
+$user->name = "Nome";
+$user->last_name = "Sobrenome";
 $user->email = "email@email.com";
 //$user->save();
 
